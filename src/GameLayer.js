@@ -16,7 +16,7 @@ var GameLayer = cc.LayerColor.extend({
       this.addChild(this.bullet);
       this.bullet.setPosition(new cc.Point(screenWidth/2,30));
       this.bullet.scheduleUpdate();
-      this.scheduleUpdate();
+      //this.scheduleUpdate();
     },
     onKeyUp: function( keyCode, event ) {
 
