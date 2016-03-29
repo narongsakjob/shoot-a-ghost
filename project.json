@@ -13,6 +13,8 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/GameLayer.js"
+        "src/GameLayer.js",
+        "src/Cannon.js",
+        "src/Bullet.js"
     ]
 }
