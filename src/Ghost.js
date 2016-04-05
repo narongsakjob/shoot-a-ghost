@@ -10,5 +10,11 @@ var Ghost = cc.Sprite.extend({
     else{
       this.setPosition(0,this.getPositionY()-30);
     }
+  },
+  hit:function( bullet ){
+    var myPos = this.getPosition();
+    var oPos = bullet.getPosition();
+  return ( ( Math.abs( myPos.x - oPos.x ) <= 40 ) &&
+  ( Math.abs( myPos.y - oPos.y ) <= 40 ) );
   }
 });

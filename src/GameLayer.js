@@ -20,7 +20,7 @@ var GameLayer = cc.LayerColor.extend({
     update : function(){
       this.checkBullet();
       count+=1;
-      if(level < 5){
+      if(level < 3){
       if(count==300){
         this.ghost = new Ghost();
         this.ghost.setPosition(new cc.Point(0,600));
@@ -38,6 +38,9 @@ var GameLayer = cc.LayerColor.extend({
           count=0;
           level +=1;
         }
+      }
+      if(this.ghost.hit(this.bullet)){
+        this.removeChild(this.ghost);
       }
 
     },
