@@ -5,7 +5,7 @@ var Ghost = cc.Sprite.extend({
   },
   update:function(){
     if(this.getPositionX() < 800){
-      this.setPositionX(this.getPositionX()+10);
+      this.setPositionX(this.getPositionX()+5);
     }
     else{
       this.setPosition(0,this.getPositionY()-30);

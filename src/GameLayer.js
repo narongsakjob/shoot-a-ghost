@@ -19,6 +19,27 @@ var GameLayer = cc.LayerColor.extend({
     },
     update : function(){
       this.checkBullet();
+      count+=1;
+      if(level < 5){
+      if(count==300){
+        this.ghost = new Ghost();
+        this.ghost.setPosition(new cc.Point(0,600));
+        this.addChild(this.ghost);
+        this.ghost.scheduleUpdate();
+        count=0;
+        level +=1;
+      }
+      }else{
+        if(count==200){
+          this.ghost = new Ghost();
+          this.ghost.setPosition(new cc.Point(0,600));
+          this.addChild(this.ghost);
+          this.ghost.scheduleUpdate();
+          count=0;
+          level +=1;
+        }
+      }
+
     },
     onKeyDown: function( keyCode, event ) {
       if(keyCode == cc.KEY.space){
@@ -63,3 +84,5 @@ var StartScene = cc.Scene.extend({
     }
 });
 var check =true;
+var count =0;
+var level =0;
