@@ -1,6 +1,7 @@
 var res = {
   cannon_png: 'res/images/ship.png',
-  bullet_png: 'res/images/bullet.png'
+  bullet_png: 'res/images/bullet.png',
+  ghost_png: 'res/images/gold.png'
 };
 
 var g_resources = [];

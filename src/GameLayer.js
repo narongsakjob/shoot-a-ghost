@@ -9,8 +9,12 @@ var GameLayer = cc.LayerColor.extend({
         // this.bullet = null;
         this.bullet = new Bullet();
          this.bullet.setPosition(0,0);
+        this.bullet.scheduleUpdate();
+        this.ghost = new Ghost();
+        this.ghost.setPosition(new cc.Point(0,600));
+        this.addChild(this.ghost);
+        this.ghost.scheduleUpdate();
         this.scheduleUpdate();
-
         return true;
     },
     update : function(){
@@ -24,12 +28,6 @@ var GameLayer = cc.LayerColor.extend({
          this.bullet.scheduleUpdate();
        }
        }
-    //   this.bullet.setPosition(new cc.Point(screenWidth/2,30));
-
-        //this.scheduleUpdate();
-
-
-
     },
     checkBullet: function(){
       if(this.bullet.getPositionY() > 600 || this.bullet.getPositionY()==0){
