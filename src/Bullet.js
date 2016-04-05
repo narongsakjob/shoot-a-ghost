@@ -6,7 +6,7 @@ var Bullet = cc.Sprite.extend({
   },
   update: function(dt){
 
-    this.setPosition( new cc.Point( screenWidth/2, this.getPositionY() + 10 ) );
+    this.setPosition( new cc.Point( screenWidth/2, this.getPositionY() + 20 ) );
 
 
   },

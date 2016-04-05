@@ -4,9 +4,11 @@ var Ghost = cc.Sprite.extend({
     this.initWithFile( 'res/images/gold.png' );
   },
   update:function(){
-    this.setPositionX(this.getPositionX()+10);
-    if(this.getPositionX()> 800){
-      this.setPosition(new cc.Point(0,this.getPositionY+10));
+    if(this.getPositionX() < 800){
+      this.setPositionX(this.getPositionX()+10);
+    }
+    else{
+      this.setPosition(0,this.getPositionY()-30);
     }
   }
 });
