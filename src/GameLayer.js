@@ -60,6 +60,18 @@ var GameLayer = cc.LayerColor.extend({
           level += 1;
           count=0;
         }
+      }else if(level == 4){
+        countGhost[3] -= 1;
+        if(countGhost[3] == 0){
+          level += 1;
+          count=0;
+        }
+      }else {
+        countGhost[4] -= 1;
+        if(countGhost[4] == 0){
+          count=0;
+          countGhost[4] = 5 ; 
+        }
       }
     },
     setPosGhost: function(){
@@ -72,30 +84,50 @@ var GameLayer = cc.LayerColor.extend({
       count+=1;
       if(level == 1){
         if(count==1){
-        this.addChild(ghostArray[0]);
-        ghostArray[0].scheduleUpdate();
-      }
+          this.addGhost(0);
+        }
       }else if(level == 2){
-        if(count==1){
-        this.addChild(ghostArray[0]);
-        ghostArray[0].scheduleUpdate();
-        }else if(count == 70){
-         this.addChild(ghostArray[1]);
-         ghostArray[1].scheduleUpdate();
-        }
-
-    }else if(level == 3){
+          if(count==1){
+            this.addGhost(0);
+          }else if(count == 70){
+            this.addGhost(1);
+          }
+      }else if(level == 3){
+          if(count==1){
+            this.addGhost(0);
+          }else if(count == 70){
+            this.addGhost(1);
+          }else if(count == 140){
+            this.addGhost(2);
+          }
+      }else if(level == 4){
+          if(count==1){
+            this.addGhost(0);
+          }else if(count == 70){
+            this.addGhost(1);
+          }else if(count == 140){
+            this.addGhost(2);
+          }else if(count == 210){
+            this.addGhost(3);
+          }
+       }else {
          if(count==1){
-         this.addChild(ghostArray[0]);
-         ghostArray[0].scheduleUpdate();
-         }else if(count == 70){
-           this.addChild(ghostArray[1]);
-           ghostArray[1].scheduleUpdate();
-        }else if(count == 140){
-          this.addChild(ghostArray[2]);
-          ghostArray[2].scheduleUpdate();
-        }
+              this.addGhost(0);
+          }else if(count == 70){
+              this.addGhost(1);
+          }else if(count == 140){
+              this.addGhost(2);
+          }else if(count == 210){
+              this.addGhost(3);
+          }else if (count == 280) {
+              this.addGhost(4);
+          }
        }
+
+    },
+    addGhost: function(index){
+      this.addChild(ghostArray[index]);
+      ghostArray[index].scheduleUpdate();
     },
     onKeyDown: function( keyCode, event ) {
       if(keyCode == cc.KEY.space){
