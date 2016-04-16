@@ -10,39 +10,92 @@ var GameLayer = cc.LayerColor.extend({
         this.bullet = new Bullet();
          this.bullet.setPosition(0,0);
         this.bullet.scheduleUpdate();
-        this.ghost = new Ghost();
-        this.ghost.setPosition(new cc.Point(0,600));
-        this.addChild(this.ghost);
-        this.ghost.scheduleUpdate();
+
+        ghostArray[0] = new Ghost();
+        ghostArray[1] = new Ghost();
+        ghostArray[2] = new Ghost();
+        ghostArray[3] = new Ghost();
+        ghostArray[4] = new Ghost();
+        this.setPosGhost();
+        this.createGhost();
+
+        //this.addChild(this.ghost);
+
         this.scheduleUpdate();
         return true;
     },
     update : function(){
       this.checkBullet();
-      count+=1;
-      if(level < 3){
-      if(count==300){
-        this.ghost = new Ghost();
-        this.ghost.setPosition(new cc.Point(0,600));
-        this.addChild(this.ghost);
-        this.ghost.scheduleUpdate();
-        count=0;
-        level +=1;
+      this.createGhost();
+      for(var i=0;i<ghostArray.length;i++){
+      if(ghostArray[i].hit(this.bullet)){
+        this.removeChild(ghostArray[i]);
+        this.removeChild(this.bullet);
+        this.bullet.setPositionY(700);
+        ghostArray[i].setPosition(new cc.Point(0,600));
+        this.checkGradeLevel();
+        // level+=1;
+        // count=0;
       }
-      }else{
-        if(count==200){
-          this.ghost = new Ghost();
-          this.ghost.setPosition(new cc.Point(0,600));
-          this.addChild(this.ghost);
-          this.ghost.scheduleUpdate();
+    }
+
+    },
+    checkGradeLevel: function(){
+
+       if(level == 1){
+         countGhost[0]-=1;
+          if(countGhost[0]==0){
+            level += 1;
+            count=0;
+          }
+      }else if(level == 2){
+        countGhost[1]-=1;
+        if(countGhost[1]==0){
+          level += 1;
           count=0;
-          level +=1;
+        }
+      }else if(level == 3){
+        countGhost[2] -= 1;
+        if(countGhost[2] == 0){
+          level += 1;
+          count=0;
         }
       }
-      if(this.ghost.hit(this.bullet)){
-        this.removeChild(this.ghost);
+    },
+    setPosGhost: function(){
+      for(var i=0;i<ghostArray.length;i++){
+        ghostArray[i].setPosition(new cc.Point(0,600));
       }
+    },
+    createGhost: function(){
 
+      count+=1;
+      if(level == 1){
+        if(count==1){
+        this.addChild(ghostArray[0]);
+        ghostArray[0].scheduleUpdate();
+      }
+      }else if(level == 2){
+        if(count==1){
+        this.addChild(ghostArray[0]);
+        ghostArray[0].scheduleUpdate();
+        }else if(count == 70){
+         this.addChild(ghostArray[1]);
+         ghostArray[1].scheduleUpdate();
+        }
+
+    }else if(level == 3){
+         if(count==1){
+         this.addChild(ghostArray[0]);
+         ghostArray[0].scheduleUpdate();
+         }else if(count == 70){
+           this.addChild(ghostArray[1]);
+           ghostArray[1].scheduleUpdate();
+        }else if(count == 140){
+          this.addChild(ghostArray[2]);
+          ghostArray[2].scheduleUpdate();
+        }
+       }
     },
     onKeyDown: function( keyCode, event ) {
       if(keyCode == cc.KEY.space){
@@ -88,4 +141,7 @@ var StartScene = cc.Scene.extend({
 });
 var check =true;
 var count =0;
-var level =0;
+var level =1;
+var ghostArray = [];
+var hitPoint =0;
+var countGhost = [1,2,3,4,5] ;
