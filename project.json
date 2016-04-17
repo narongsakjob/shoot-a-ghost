@@ -16,6 +16,7 @@
         "src/GameLayer.js",
         "src/Cannon.js",
         "src/Bullet.js",
-        "src/Ghost.js"
+        "src/Ghost.js",
+        "src/Checker.js"
     ]
 }

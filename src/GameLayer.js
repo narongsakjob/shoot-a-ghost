@@ -6,11 +6,12 @@ var GameLayer = cc.LayerColor.extend({
         this.cannon.setPosition(new cc.Point(screenWidth/2,30));
         this.addChild(this.cannon);
         this.addKeyboardHandlers();
-        // this.bullet = null;
         this.bullet = new Bullet();
-         this.bullet.setPosition(0,0);
+        this.bullet.setPosition(0,0);
         this.bullet.scheduleUpdate();
-
+        this.checker = new Checker();
+        this.checker.setPosition(screenWidth-50,190);
+        this.addChild(this.checker);
         ghostArray[0] = new Ghost();
         ghostArray[1] = new Ghost();
         ghostArray[2] = new Ghost();
@@ -18,9 +19,6 @@ var GameLayer = cc.LayerColor.extend({
         ghostArray[4] = new Ghost();
         this.setPosGhost();
         this.createGhost();
-
-        //this.addChild(this.ghost);
-
         this.scheduleUpdate();
         return true;
     },
@@ -28,16 +26,20 @@ var GameLayer = cc.LayerColor.extend({
       this.checkBullet();
       this.createGhost();
       for(var i=0;i<ghostArray.length;i++){
-      if(ghostArray[i].hit(this.bullet)){
-        this.removeChild(ghostArray[i]);
-        this.removeChild(this.bullet);
-        this.bullet.setPositionY(700);
-        ghostArray[i].setPosition(new cc.Point(0,600));
-        this.checkGradeLevel();
-        // level+=1;
-        // count=0;
+        if(ghostArray[i].hit(this.bullet)){
+          this.removeChild(ghostArray[i]);
+          this.removeChild(this.bullet);
+          this.bullet.setPositionY(700);
+          ghostArray[i].setPosition(new cc.Point(0,550));
+          this.checkGradeLevel();
+        }
+        if(this.checker.gameOver(ghostArray[i])){
+          for(var j=0;j<ghostArray.length;j++){
+          ghostArray[j].unscheduleUpdate();
+          }
+        }
+
       }
-    }
 
     },
     checkGradeLevel: function(){
@@ -47,36 +49,47 @@ var GameLayer = cc.LayerColor.extend({
           if(countGhost[0]==0){
             level += 1;
             count=0;
+            this.updateMoveSpeed();
           }
       }else if(level == 2){
         countGhost[1]-=1;
         if(countGhost[1]==0){
           level += 1;
           count=0;
+          this.updateMoveSpeed();
         }
       }else if(level == 3){
         countGhost[2] -= 1;
         if(countGhost[2] == 0){
           level += 1;
           count=0;
+          this.updateMoveSpeed();
         }
       }else if(level == 4){
         countGhost[3] -= 1;
         if(countGhost[3] == 0){
           level += 1;
           count=0;
+          this.updateMoveSpeed();
         }
       }else {
         countGhost[4] -= 1;
         if(countGhost[4] == 0){
           count=0;
-          countGhost[4] = 5 ; 
+          level+=1;
+          countGhost[4] = 5 ;
+          this.updateMoveSpeed();
         }
+      }
+    },
+    updateMoveSpeed: function(){
+      for(var i=0;i<ghostArray.length;i++){
+        ghostArray[i].velocityUp();
       }
     },
     setPosGhost: function(){
       for(var i=0;i<ghostArray.length;i++){
-        ghostArray[i].setPosition(new cc.Point(0,600));
+        ghostArray[i].setPosition(new cc.Point(0,550));
       }
     },
     createGhost: function(){
@@ -89,25 +102,25 @@ var GameLayer = cc.LayerColor.extend({
       }else if(level == 2){
           if(count==1){
             this.addGhost(0);
-          }else if(count == 70){
+          }else if(count == 60){
             this.addGhost(1);
           }
       }else if(level == 3){
           if(count==1){
             this.addGhost(0);
-          }else if(count == 70){
+          }else if(count == 60){
             this.addGhost(1);
-          }else if(count == 140){
+          }else if(count == 120){
             this.addGhost(2);
           }
       }else if(level == 4){
           if(count==1){
             this.addGhost(0);
-          }else if(count == 70){
+          }else if(count == 60){
             this.addGhost(1);
-          }else if(count == 140){
+          }else if(count == 120){
             this.addGhost(2);
-          }else if(count == 210){
+          }else if(count == 180){
             this.addGhost(3);
           }
        }else {
@@ -144,6 +157,9 @@ var GameLayer = cc.LayerColor.extend({
       }else{
         check = false;
       }
+
+    },
+    endGame: function(){
 
     },
     onKeyUp: function( keyCode, event ) {
