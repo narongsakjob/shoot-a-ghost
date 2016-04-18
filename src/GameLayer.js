@@ -20,6 +20,9 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosGhost();
         this.createGhost();
         this.scheduleUpdate();
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+	      this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+	      this.addChild( this.scoreLabel );
         return true;
     },
     update : function(){
@@ -32,6 +35,8 @@ var GameLayer = cc.LayerColor.extend({
           this.bullet.setPositionY(700);
           ghostArray[i].setPosition(new cc.Point(0,550));
           this.checkGradeLevel();
+          score++;
+          this.scoreLabel.setString(score);
         }
         if(this.checker.gameOver(ghostArray[i])){
           for(var j=0;j<ghostArray.length;j++){
@@ -193,3 +198,4 @@ var level =1;
 var ghostArray = [];
 var hitPoint =0;
 var countGhost = [1,2,3,4,5] ;
+var score=0;
