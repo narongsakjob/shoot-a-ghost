@@ -101,48 +101,17 @@ var GameLayer = cc.LayerColor.extend({
     createGhost: function(){
 
       count+=1;
-
-      if(level == 1){
-        if(count==1){
-          this.addGhost(0);
-        }
-      }else if(level == 2){
-          if(count==1){
-            this.addGhost(0);
-          }else if(count == 60){
-            this.addGhost(1);
-          }
-      }else if(level == 3){
-          if(count==1){
-            this.addGhost(0);
-          }else if(count == 60){
-            this.addGhost(1);
-          }else if(count == 120){
-            this.addGhost(2);
-          }
-      }else if(level == 4){
-          if(count==1){
-            this.addGhost(0);
-          }else if(count == 60){
-            this.addGhost(1);
-          }else if(count == 120){
-            this.addGhost(2);
-          }else if(count == 180){
-            this.addGhost(3);
-          }
-       }else {
-         if(count==1){
+          if(count==1 && level >= 1){
               this.addGhost(0);
-          }else if(count == 70){
+          }else if(count == 60 && level >= 2){
               this.addGhost(1);
-          }else if(count == 140){
+          }else if(count == 120 && level >= 3){
               this.addGhost(2);
-          }else if(count == 210){
+          }else if(count == 180 && level >= 4){
               this.addGhost(3);
-          }else if (count == 280) {
+          }else if (count == 240 && level >= 5) {
               this.addGhost(4);
           }
-       }
 
     },
     addGhost: function(index){
