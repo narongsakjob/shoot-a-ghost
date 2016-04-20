@@ -1,7 +1,7 @@
 var Ghost = cc.Sprite.extend({
   ctor:function (){
     this._super();
-    this.initWithFile( 'res/images/gold.png' );
+    this.initWithFile( 'res/images/ghost.png' );
   },
   update:function(){
     if(this.getPositionX() < 800){

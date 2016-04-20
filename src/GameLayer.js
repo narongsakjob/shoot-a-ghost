@@ -113,6 +113,7 @@ var GameLayer = cc.LayerColor.extend({
               this.addGhost(4);
           }
 
+
     },
     addGhost: function(index){
       this.addChild(ghostArray[index]);
