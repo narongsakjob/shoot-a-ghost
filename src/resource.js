@@ -1,5 +1,5 @@
 var res = {
-  cannon_png: 'res/images/ship.png',
+  cannon_png: 'res/images/cannon.png',
   bullet_png: 'res/images/bullet.png',
   ghost_png: 'res/images/ghost.png',
   checker_png: 'res/images/checker.png'

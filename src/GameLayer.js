@@ -6,7 +6,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addKeyboardHandlers();
 
         this.cannon = new Cannon();
-        this.cannon.setPosition(new cc.Point(screenWidth/2,30));
+        this.cannon.setPosition(new cc.Point(screenWidth/2,50));
         this.addChild(this.cannon);
 
         this.bullet = new Bullet();
@@ -49,8 +49,8 @@ var GameLayer = cc.LayerColor.extend({
           this.removeChild(ghostArray[i]);
           score++;
           this.scoreLabel.setString(score);
-          this.removeChild(this.bullet);
-          this.bullet.setPositionY(700);
+          // this.removeChild(this.bullet);
+          // this.bullet.setPositionY(700);
           this.checkGradeLevel();
         }
         if(this.checker.gameOver(ghostArray[i])){
@@ -124,10 +124,15 @@ var GameLayer = cc.LayerColor.extend({
       if(keyCode == cc.KEY.space){
         if(check==true){
          this.bullet = new Bullet();
+         this.bullet.setPosition(this.cannon.getPositionX(),70);
          this.addChild(this.bullet);
          this.bullet.scheduleUpdate();
        }
-       }
+     }else if(keyCode == cc.KEY.left){
+         this.cannon.moveLeft();
+      }else if(keyCode == cc.KEY.right){
+         this.cannon.moveRight();
+      }
     },
 
     checkBullet: function(){
