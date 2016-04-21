@@ -5,7 +5,16 @@ var Bullet = cc.Sprite.extend({
     this.initWithFile('res/images/bullet.png');
   },
   update: function(dt){
-    this.setPosition( new cc.Point( screenWidth/2, this.getPositionY() + 12 ) );
+    this.setPositionY(this.getPositionY() + 12  );
+  },
+  checkBullet: function(){
+
+    if(this.getPositionY() > 600 || this.getPositionY()==0){
+      return true;
+    }else{
+      return false;
+    }
+
   }
 
 

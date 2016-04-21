@@ -6,13 +6,17 @@ var GameLayer = cc.LayerColor.extend({
         this.addKeyboardHandlers();
 
         this.cannon = new Cannon();
-        this.cannon.setPosition(new cc.Point(screenWidth/2,30));
+        this.cannon.setPosition(new cc.Point(screenWidth/2,50));
         this.addChild(this.cannon);
 
-        this.bullet = new Bullet();
-        this.bullet.setPosition(0,700);
-        this.bullet.scheduleUpdate();
 
+        bulletArray[0] = new Bullet();
+        bulletArray[1] = new Bullet();
+        bulletArray[2] = new Bullet();
+
+        for(var i=0;i<bulletArray.length;i++){
+          bulletArray[i].setPosition(new cc.Point(0,700));
+        }
         this.checker = new Checker();
         this.checker.setPosition(screenWidth-50,190);
         this.addChild(this.checker);
@@ -37,20 +41,22 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     update : function(){
-      this.checkBullet();
+      //this.checkBullet();
       this.createGhost();
       this.checkGhost();
+      //this.reloadBullet();
+
     },
 
     checkGhost: function(){
       for(var i=0;i<ghostArray.length;i++){
-        if(ghostArray[i].hit(this.bullet)){
+        if(ghostArray[i].hit(bulletArray[0]) || ghostArray[i].hit(bulletArray[1]) || ghostArray[i].hit(bulletArray[2])){
           ghostArray[i].setPosition(new cc.Point(0,550));
           this.removeChild(ghostArray[i]);
           score++;
           this.scoreLabel.setString(score);
-          this.removeChild(this.bullet);
-          this.bullet.setPositionY(700);
+          // this.removeChild(this.bullet);
+          // this.bullet.setPositionY(700);
           this.checkGradeLevel();
         }
         if(this.checker.gameOver(ghostArray[i])){
@@ -63,7 +69,7 @@ var GameLayer = cc.LayerColor.extend({
       for(var j=0;j<ghostArray.length;j++){
       ghostArray[j].unscheduleUpdate();
       }
-      this.bullet.unscheduleUpdate();
+
     },
 
     checkGradeLevel: function(){
@@ -122,23 +128,38 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function( keyCode, event ) {
       if(keyCode == cc.KEY.space){
-        if(check==true){
-         this.bullet = new Bullet();
-         this.addChild(this.bullet);
-         this.bullet.scheduleUpdate();
-       }
-       }
-    },
-
-    checkBullet: function(){
-
-      if(this.bullet.getPositionY() > 600 || this.bullet.getPositionY()==0){
-        check =true;
-      }else{
-        check = false;
+        this.reloadBullet();
+     }else if(keyCode == cc.KEY.left){
+         this.cannon.moveLeft();
+      }else if(keyCode == cc.KEY.right){
+         this.cannon.moveRight();
       }
-
     },
+    reloadBullet: function(){
+      // for(var i=0 ;i<countReload.length;i++){
+      //   if(bulletArray[i].checkBullet()==true){
+      //   if(statusBullet[i] == 0){
+      //       countReload[i]--;
+      //       if(countReload[i]==0){
+      //         statusBullet[i]=1;
+      //         console.log("statusBullet = 1");
+      //       }
+      //     }
+      //   }
+      // }
+      for(var i =0 ; countReload.length;i++){
+      if(countReload[i] == 0){
+       bulletArray[i].setPosition(this.cannon.getPositionX(),70);
+       this.addChild(bulletArray[i]);
+       bulletArray[i].scheduleUpdate();
+       //statusBullet[i] = 0;
+      countReload[i]=20;
+      //  countBullet+=1;
+      //  if(countBullet == 3) countBullet=0;
+      }
+      }
+    },
+
     onKeyUp: function( keyCode, event ) {
 
     },
@@ -164,10 +185,13 @@ var StartScene = cc.Scene.extend({
         this.addChild( layer );
     }
 });
-var check =true;
 var count =0;
 var level =1;
 var ghostArray = [];
 var hitPoint =0;
 var countGhost = [1,2,3,4,5] ;
 var score=0;
+var bulletArray = [];
+var countBullet=0;
+var countReload = [0,0,0];
+var statusBullet = [1,1,1];
