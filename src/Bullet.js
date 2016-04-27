@@ -4,15 +4,13 @@ var Bullet = cc.Sprite.extend({
     this._super();
     this.initWithFile('res/images/bullet.png');
   },
-  update: function(dt){
+  update: function(){
     this.setPositionY(this.getPositionY() + 12  );
   },
   checkBullet: function(){
 
-    if(this.getPositionY() > 600 || this.getPositionY()==0){
+    if(this.getPositionY() > 600){
       return true;
-    }else{
-      return false;
     }
 
   }

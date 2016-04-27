@@ -8,6 +8,12 @@ var Cannon = cc.Sprite.extend({
   },
   moveRight:function(){
       this.setPositionX(this.getPositionX()+30);
+  },
+  hitFireball:function(fireball){
+    var myPos = this.getPosition();
+    var oPos = fireball.getPosition();
+  return ( ( Math.abs( myPos.x - oPos.x ) <= 25 ) &&
+  ( Math.abs( myPos.y - oPos.y ) <= 25 ) );
   }
 
 });

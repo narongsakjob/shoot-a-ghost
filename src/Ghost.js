@@ -12,13 +12,18 @@ var Ghost = cc.Sprite.extend({
     }
   },
   velocityUp:function(){
-    velocity+=0.2;
+    velocity+=0.1;
   },
   hit:function( bullet ){
     var myPos = this.getPosition();
     var oPos = bullet.getPosition();
   return ( ( Math.abs( myPos.x - oPos.x ) <= 25 ) &&
   ( Math.abs( myPos.y - oPos.y ) <= 25 ) );
+  },
+  equalsX:function( cannon ){
+    var myPos = this.getPosition();
+    var oPos = cannon.getPosition();
+  return  ( Math.abs( myPos.x - oPos.x ) <= 15 )
   }
 });
-var velocity = 5;
+var velocity = 4;
