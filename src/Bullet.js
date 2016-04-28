@@ -4,6 +4,7 @@ var Bullet = cc.Sprite.extend({
     this._super();
     this.initWithFile('res/images/bullet.png');
   },
+
   update: function(){
     this.setPositionY(this.getPositionY() + 12  );
   },
@@ -14,7 +15,5 @@ var Bullet = cc.Sprite.extend({
     }
 
   }
-
-
 
 });

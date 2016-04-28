@@ -16,6 +16,5 @@ var Cannon = cc.Sprite.extend({
   return ( ( Math.abs( myPos.x - oPos.x ) <= 45 ) &&
   ( Math.abs( myPos.y - oPos.y ) <= 36 ) );
   }
-
 });
 Cannon.VELOCITY = 35;

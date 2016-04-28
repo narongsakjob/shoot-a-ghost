@@ -137,6 +137,7 @@ var GameLayer = cc.LayerColor.extend({
         this.updateMoveSpeed();
         if(index == 4)
         countGhost[index] = 5 ;
+        
       }
     },
 
