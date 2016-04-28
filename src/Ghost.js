@@ -8,7 +8,7 @@ var Ghost = cc.Sprite.extend({
       this.setPositionX(this.getPositionX()+velocity);
     }
     else{
-      this.setPosition(0,this.getPositionY()-40);
+      this.setPosition(0,this.getPositionY()-20);
     }
   },
   velocityUp:function(){

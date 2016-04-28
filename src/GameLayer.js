@@ -5,6 +5,18 @@ var GameLayer = cc.LayerColor.extend({
 
         this.addKeyboardHandlers();
 
+        heart[0] = new Heart();
+        heart[1] = new Heart();
+        heart[2] = new Heart();
+        heart[3] = new Heart();
+        heart[4] = new Heart();
+        heart[0].setPosition(40,550);
+        heart[1].setPosition(105,550);
+        heart[2].setPosition(170,550);
+        heart[3].setPosition(240,550);
+        heart[4].setPosition(305,550);
+
+
         this.cannon = new Cannon();
         this.cannon.setPosition(new cc.Point(screenWidth/2,50));
         this.addChild(this.cannon);
@@ -30,7 +42,8 @@ var GameLayer = cc.LayerColor.extend({
         fireBall[4] = new Fireball();
 
         for(var i=0;i<ghostArray.length;i++){
-          ghostArray[i].setPosition(new cc.Point(0,550));
+          this.addChild(heart[i]);
+          ghostArray[i].setPosition(new cc.Point(0,480));
           fireBall[i].setPositionY(0);
           fireBall[i].scheduleUpdate();
         }
@@ -50,13 +63,22 @@ var GameLayer = cc.LayerColor.extend({
       this.createGhost();
 
         for(var i=0;i<ghostArray.length;i++){
-          this.checkGhost(i);
+          this.checkHitGhost(i);
           this.createFireball(i);
+          this.checkHitFireball(i);
           }
 
 
     },
-
+    checkHitFireball: function(index){
+      if(this.cannon.hitFireball(fireBall[index])){
+        fireBall[index].setPositionY(0);
+        this.removeChild(fireBall[index]);
+        this.removeChild(heart[countDeath]);
+        countDeath-=1;
+        if(countDeath == -1 ) this.stopGame();
+      }
+    },
     createFireball:function(index){
       if(fireBall[index].checkFireball()){
         if(ghostArray[index].equalsX(this.cannon)){
@@ -68,14 +90,10 @@ var GameLayer = cc.LayerColor.extend({
 
       }
     },
-    // checkFireball: function(){
-    //
-    // },
-
-    checkGhost: function(index){
+    checkHitGhost: function(index){
 
         if(ghostArray[index].hit(this.bullet)){
-          ghostArray[index].setPosition(new cc.Point(0,550));
+          ghostArray[index].setPosition(new cc.Point(0,480));
           this.removeChild(ghostArray[index]);
           score++;
           this.scoreLabel.setString(score);
@@ -200,3 +218,5 @@ var hitPoint =0;
 var countGhost = [1,2,3,4,5] ;
 var score=0;
 var fireBall = [];
+var heart = [];
+var countDeath = 4;

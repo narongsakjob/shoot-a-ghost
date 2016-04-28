@@ -18,6 +18,7 @@
         "src/Bullet.js",
         "src/Ghost.js",
         "src/Checker.js",
-        "src/Fireball.js"
+        "src/Fireball.js",
+        "src/Heart.js"
     ]
 }
