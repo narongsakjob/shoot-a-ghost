@@ -19,6 +19,7 @@
         "src/Ghost.js",
         "src/Checker.js",
         "src/Fireball.js",
-        "src/Heart.js"
+        "src/Heart.js",
+        "src/DeadMenu.js"
     ]
 }

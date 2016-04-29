@@ -108,10 +108,11 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     stopGame: function(){
-      for(var j=0;j<ghostArray.length;j++){
-      ghostArray[j].unscheduleUpdate();
-      }
-      this.cannon.unscheduleUpdate();
+      // for(var j=0;j<ghostArray.length;j++){
+      // ghostArray[j].unscheduleUpdate();
+      // }
+      // this.cannon.unscheduleUpdate();
+      cc.director.runScene(new DeadMenuScene());
     },
 
     checkGradeLevel: function(){
@@ -137,7 +138,7 @@ var GameLayer = cc.LayerColor.extend({
         this.updateMoveSpeed();
         if(index == 4)
         countGhost[index] = 5 ;
-        
+
       }
     },
 
