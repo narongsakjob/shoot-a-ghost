@@ -2,18 +2,23 @@ var Ghost = cc.Sprite.extend({
   ctor:function (){
     this._super();
     this.initWithFile( 'res/images/ghost.png' );
+    this.velocity = 4;
   },
   update:function(){
+
     if(this.getPositionX() < 800){
-      this.setPositionX(this.getPositionX()+velocity);
+      this.setPositionX(this.getPositionX()+this.velocity);
     }
     else{
-      this.setPosition(0,this.getPositionY()-20);
+      this.setPosition(0,this.getPositionY()-35);
     }
   },
   velocityUp:function(){
-    velocity+=0.1;
-    return velocity;
+    this.velocity+=0.2;
+    return this.velocity;
+  },
+  setVelocity:function() {
+    this.valocity = 4;
   },
   hit:function( bullet ){
     var myPos = this.getPosition();
@@ -27,4 +32,3 @@ var Ghost = cc.Sprite.extend({
   return  ( Math.abs( myPos.x - oPos.x ) <= 15 )
   }
 });
-var velocity = 4;

@@ -1,42 +1,60 @@
 var DeadMenu = cc.LayerColor.extend({
-    init: function() {
-        this._super( new cc.Color( 127, 127, 127, 255 ) );
+  init: function() {
+    this._super( new cc.Color( 127, 127, 127, 255 ) );
 
-        this.setPosition( new cc.Point( 0, 0 ) );
+    this.setPosition( new cc.Point( 0, 0 ) );
+    this.blackground = cc.Sprite.create('res/images/blackground.jpg');
+    this.blackground.setPosition(400,300);
+    this.addChild(this.blackground);
+    this.gg = cc.Sprite.create( 'res/images/gg.png' );
+    this.gg.setPosition( new cc.Point( 400, 500 ) );
+    this.addChild( this.gg );
+    this.addKeyboardHandlers();
 
-        this.bottomPillar = cc.Sprite.create( 'res/images/END.png' );
-        this.bottomPillar.setPosition( new cc.Point( 400, 300 ) );
-        this.addChild( this.bottomPillar );
-        this.addKeyboardHandlers();
-        return true;
-    },
-    onKeyDown: function( keyCode, event ) {
-          if(keyCode == cc.KEY.p){
-              cc.director.runScene(new StartScene());
-           }
-    },
+    this.a = new GameLayer();
 
-    onKeyUp: function( keyCode, event ) {
+    this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 80 );
+    this.scoreLabel.setPosition( new cc.Point( 400, 300 ) );
 
-    },
-    addKeyboardHandlers: function() {
-        var self = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.KEYBOARD,
-            onKeyPressed : function( keyCode, event ) {
-                self.onKeyDown( keyCode, event );
-            },
-            onKeyReleased: function( keyCode, event ) {
-                self.onKeyUp( keyCode, event );
-            }
-        }, this);
+
+
+
+    this.playGame = cc.Sprite.create('res/images/playGame.png');
+    this.playGame.setPosition( new cc.Point( 400 , 30 ) );
+    this.addChild(this.playGame);
+    cc.audioEngine.playMusic(res.dead_music,false);
+    this.scheduleUpdate();
+    return true;
+  },
+  onKeyDown: function( keyCode, event ) {
+    if(keyCode == cc.KEY.space){
+      cc.audioEngine.stopMusic();
+      this.a.setGame();
+      cc.director.runScene(new StartMenuScene());
     }
+  },
+
+  onKeyUp: function( keyCode, event ) {
+
+  },
+  addKeyboardHandlers: function() {
+    var self = this;
+    cc.eventManager.addListener({
+      event: cc.EventListener.KEYBOARD,
+      onKeyPressed : function( keyCode, event ) {
+        self.onKeyDown( keyCode, event );
+      },
+      onKeyReleased: function( keyCode, event ) {
+        self.onKeyUp( keyCode, event );
+      }
+    }, this);
+  }
 });
 DeadMenuScene = cc.Scene.extend({
-    onEnter: function() {
-        this._super();
-        var layer = new DeadMenu();
-        layer.init();
-        this.addChild( layer );
-    }
+  onEnter: function() {
+    this._super();
+    var layer = new DeadMenu();
+    layer.init();
+    this.addChild( layer );
+  }
 });
