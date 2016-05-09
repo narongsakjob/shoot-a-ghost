@@ -14,7 +14,7 @@ var Fireball = cc.Sprite.extend({
   }
   },
   randomVelocity: function(level){
-    return Math.floor(Math.random() * 10) + 1 ;
+    return Math.floor(Math.random() * 9) + 1 ;
   }
 
 });

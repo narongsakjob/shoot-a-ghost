@@ -13,6 +13,7 @@ var Ghost = cc.Sprite.extend({
   },
   velocityUp:function(){
     velocity+=0.1;
+    return velocity;
   },
   hit:function( bullet ){
     var myPos = this.getPosition();

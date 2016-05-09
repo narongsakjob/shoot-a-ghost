@@ -15,6 +15,14 @@ var Cannon = cc.Sprite.extend({
     var oPos = fireball.getPosition();
   return ( ( Math.abs( myPos.x - oPos.x ) <= 45 ) &&
   ( Math.abs( myPos.y - oPos.y ) <= 36 ) );
+  },
+  checkDistanceLeft: function(){
+    if(this.getPositionX()-35 >14)
+      return true;
+  },
+  checkDistanceRight: function(){
+    if(this.getPositionX()+35 < 785)
+      return true;
   }
 });
-Cannon.VELOCITY = 35;
+Cannon.VELOCITY = 33;

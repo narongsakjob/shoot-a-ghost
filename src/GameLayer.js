@@ -46,6 +46,7 @@ var GameLayer = cc.LayerColor.extend({
           ghostArray[i].setPosition(new cc.Point(0,480));
           fireBall[i].setPositionY(0);
           fireBall[i].scheduleUpdate();
+
         }
 
         this.createGhost();
@@ -60,6 +61,7 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     update : function(){
+
       this.createGhost();
 
         for(var i=0;i<ghostArray.length;i++){
@@ -108,10 +110,16 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     stopGame: function(){
-      // for(var j=0;j<ghostArray.length;j++){
-      // ghostArray[j].unscheduleUpdate();
-      // }
-      // this.cannon.unscheduleUpdate();
+       check =true;
+       count =0;
+       level =1;
+       ghostArray = [];
+       hitPoint =0;
+       countGhost = [1,2,3,4,5] ;
+       score=0;
+       fireBall = [];
+       heart = [];
+       countDeath = 4;
       cc.director.runScene(new DeadMenuScene());
     },
 
@@ -143,7 +151,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     updateMoveSpeed: function(){
+
       for(var i=0;i<ghostArray.length;i++){
+        console.log(" speed " + ghostArray[i].velocityUp());
         ghostArray[i].velocityUp();
       }
     },
@@ -180,9 +190,11 @@ var GameLayer = cc.LayerColor.extend({
        }
        }
        if(keyCode == cc.KEY.left){
-         this.cannon.moveLeft();
+          if(this.cannon.checkDistanceLeft())
+          this.cannon.moveLeft();
        }
        if(keyCode == cc.KEY.right){
+         if(this.cannon.checkDistanceRight())
          this.cannon.moveRight();
        }
     },

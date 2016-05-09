@@ -20,6 +20,7 @@
         "src/Checker.js",
         "src/Fireball.js",
         "src/Heart.js",
-        "src/DeadMenu.js"
+        "src/DeadMenu.js",
+        "src/StartMenu.js"
     ]
 }
