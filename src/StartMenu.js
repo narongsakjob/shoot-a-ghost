@@ -32,7 +32,7 @@ var StartMenu = cc.LayerColor.extend( {
         this.space.setPosition( new cc.Point( 400 , 170 ) );
         this.addChild(this.space);
 
-        cc.audioEngine.playMusic(res.manu_music,false);
+        cc.audioEngine.playMusic(res.manu_music,true);
 
         return true;
     },

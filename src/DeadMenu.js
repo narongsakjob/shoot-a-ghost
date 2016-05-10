@@ -15,14 +15,15 @@ var DeadMenu = cc.LayerColor.extend({
 
     this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 80 );
     this.scoreLabel.setPosition( new cc.Point( 400, 300 ) );
-
+    this.scoreLabel.setString("SCORE : "+score);
+    this.addChild(this.scoreLabel);
 
 
 
     this.playGame = cc.Sprite.create('res/images/playGame.png');
     this.playGame.setPosition( new cc.Point( 400 , 30 ) );
     this.addChild(this.playGame);
-    cc.audioEngine.playMusic(res.dead_music,false);
+    cc.audioEngine.playMusic(res.dead_music,true);
     this.scheduleUpdate();
     return true;
   },

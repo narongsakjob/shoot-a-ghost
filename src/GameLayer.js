@@ -93,7 +93,7 @@ var GameLayer = cc.LayerColor.extend({
   createFireball:function(index){
     if(fireBall[index].checkFireball()){
       if(ghostArray[index].equalsX(this.cannon)){
-        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.setEffectsVolume(0.25);
         cc.audioEngine.playEffect(res.ghost_sound);
         fireBall[index] = new Fireball();
         fireBall[index].setPosition(ghostArray[index].getPosition());
@@ -196,7 +196,7 @@ var GameLayer = cc.LayerColor.extend({
   onKeyDown: function( keyCode, event ) {
     if(keyCode == cc.KEY.space){
       if(this.bullet.checkBullet()){
-        cc.audioEngine.setEffectsVolume(0.1);
+        cc.audioEngine.setEffectsVolume(0.2);
         cc.audioEngine.playEffect(res.shoot_sound);
         this.bullet = new Bullet();
         this.bullet.setPosition(this.cannon.getPositionX(),70);
@@ -205,12 +205,14 @@ var GameLayer = cc.LayerColor.extend({
       }
     }
     if(keyCode == cc.KEY.left){
-      if(this.cannon.checkDistanceLeft())
-      this.cannon.switchDirection(1);
+      // if(this.cannon.checkDistanceLeft())
+      // this.cannon.switchDirection(1);
+      this.cannon.moveLeft();
     }
     if(keyCode == cc.KEY.right){
-      if(this.cannon.checkDistanceRight())
-      this.cannon.switchDirection(2);
+      // if(this.cannon.checkDistanceRight())
+      // this.cannon.switchDirection(2);
+      this.cannon.moveRight();
     }
   },
 

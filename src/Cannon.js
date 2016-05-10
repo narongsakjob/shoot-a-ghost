@@ -2,54 +2,50 @@ var Cannon = cc.Sprite.extend({
   ctor:function (){
     this._super();
     this.initWithFile( 'res/images/cannon.png' );
-    this.vy = 0.01 ;
+    this.vx = 0 ;
+    this.direction = null;
   },
   update: function(){
-
+    this.addsFriction();
     this.move();
   },
-  switchDirection:function(direction) {
-
-    if(direction == 1){
-      this.isLeft = true;
-    }else if(direction == 2){
-      this.isRight = true;
+  addsFriction: function(){
+    if(this.vx > 0) {
+      this.vx -= FRICTION;
     }
 
+    if(this.vx < 0 ){
+      this.vx += FRICTION;
+    }
   },
   move:function(){
-      if(this.isLeft == true){
-      this.setPositionX(this.getPositionX()+Cannon.MOVE_LEFT);
-      this.isLeft = false;
-      }else {
-      this.setPositionX(this.getPositionX()-this.vy);
-      }
-      if(this.isRight == true){
-      this.setPositionX(this.getPositionX()+Cannon.MOVE_RIGHT);
-      this.isRight = false;
-      }else{
-      this.setPositionX(this.getPositionX()+this.vy);
-      }
+    this.checkDistance();
+    this.setPositionX( this.getPositionX() + this.vx);
+  },
+  moveLeft: function() {
+    this.direction = Cannon.DIR.LEFT;
+    this.vx = (-1)*Cannon.SPEED;
+  },
+  moveRight: function() {
+    this.direction = Cannon.DIR.RIGHT;
+    this.vx = Cannon.SPEED;
   },
   hitFireball:function(fireball){
     var myPos = this.getPosition();
     var oPos = fireball.getPosition();
-  return ( ( Math.abs( myPos.x - oPos.x ) <= 45 ) &&
-  ( Math.abs( myPos.y - oPos.y ) <= 36 ) );
+    return ( ( Math.abs( myPos.x - oPos.x ) <= 45 ) &&
+    ( Math.abs( myPos.y - oPos.y ) <= 36 ) );
   },
-  checkDistanceLeft: function(){
-    if(this.getPositionX()-35 >14)
-      return true;
-  },
-  checkDistanceRight: function(){
-    if(this.getPositionX()+35 < 785)
-      return true;
+  checkDistance: function(){
+    if((this.getPositionX() >= screenWidth - 50 && this.direction != Cannon.DIR.LEFT)|| (this.getPositionX() <=  50 && this.direction != Cannon.DIR.RIGHT)){
+      this.vx = 0;
+    }
   }
 });
 
-Cannon.MOVE_LEFT = -33;
-Cannon.MOVE_RIGHT = 33;
+Cannon.SPEED = 9;
 Cannon.DIR = {
   LEFT:1,
   RIGHT:2
 };
+FRICTION = 0.5;
