@@ -1,20 +1,20 @@
 var Fireball = cc.Sprite.extend({
 
-  ctor: function(){
+  ctor: function() {
     this._super();
-    this.initWithFile('res/images/fireball.png');
+    this.initWithFile( 'res/images/fireball.png' );
     this.vy = this.randomVelocity();
   },
-  update: function(){
-    this.setPositionY(this.getPositionY() - this.vy  );
+  update: function() {
+    this.setPositionY( this.getPositionY() - this.vy  );
   },
-  checkFireball:function(){
-  if(this.getPositionY() <= 0 ){
-    return true;
-  }
+  checkFireball: function() {
+
+  if( this.getPositionY() <= 0 ) return true;
+
   },
-  randomVelocity: function(level){
-    return Math.floor(Math.random() * 10) + 1.5 ;
+  randomVelocity: function( level ) {
+    return Math.floor( Math.random() * 10 ) + 1.5 ;
   }
 
 });
