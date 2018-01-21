@@ -1,6 +1,6 @@
 # shoot-a-ghost
 
-Running the tests (version <3)
+Running deverloper
 ------------------
 
 ```shell
